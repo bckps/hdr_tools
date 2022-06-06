@@ -100,28 +100,27 @@ if __name__ == '__main__':
         #################################################################
         for i,b1 in enumerate(b1_list):
             img = np.array(cv2.imread(os.path.join(hdrfile_path, b1), flags=cv2.IMREAD_ANYDEPTH))
-            response_img[:,i,:] += img[:width,:,2]
+            response_img[i,:,:] += img[:width,:,2]
 
-        first_response = np.sum(response_img, axis=2).transpose(1, 0)
-        one_responces = response_img.transpose(1, 0, 2).copy()
+        first_response = np.sum(response_img, axis=2)
+        one_responces = response_img.copy()
         print(len(first_response.flatten()) - np.count_nonzero(first_response.flatten()))
 
         for i,b2 in enumerate(b2_list):
             img = np.array(cv2.imread(os.path.join(hdrfile_path, b2), flags=cv2.IMREAD_ANYDEPTH))
-            response_img[:,i,:] += img[:width,:,2]
+            response_img[i,:,:] += img[:width,:,2]
 
-        second_response = np.sum(response_img, axis=2).transpose(1, 0)-first_response
-        two_responces = response_img.transpose(1, 0, 2).copy()
+        second_response = np.sum(response_img, axis=2)-first_response
+        two_responces = response_img.copy()
 
         for i,b3 in enumerate(b3_list):
             img = np.array(cv2.imread(os.path.join(hdrfile_path, b3), flags=cv2.IMREAD_ANYDEPTH))
-            response_img[:,i,:] += img[:width,:,2]
+            response_img[i,:,:] += img[:width,:,2]
 
         #################################################################
         # GT calclation from 1st-bounce. Take care of 1st-bounce existance.
         #################################################################
-        # Transpose xy 
-        response_img = response_img.transpose(1, 0, 2)
+
         c = 299792458
         z_max = c*(30e-12)*2220 / 2.0
 
