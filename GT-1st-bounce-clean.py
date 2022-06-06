@@ -12,11 +12,10 @@ dimx=256;
 dimy=256;(255)
 dimt=2220;
 
-c=299792458; %m/sec
-frame_length =  0.008993773740; %m -> 30psec 
-66.6ns = 3*22.2ns = 3*(740*30ps)
-dimt 2220 = 3(windows) * 740(time window width)
-resize_scale = 1;
+c=299792458; [m/s]
+frame_length =  0.008993773740; c*30 ps [m]
+66.6ns = 3*22.2ns = 3*(740*30 ps)
+dimt 2220 = 3(windows [A0,A1,A2] ) * 740(time window width [22.2 ns])
 """
 
 
