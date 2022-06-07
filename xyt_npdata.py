@@ -27,17 +27,14 @@ def collect_panaToF_inpulsefile(folder_path):
     b3_list = []
     
     for file in files:
-        file_bounce = file.split('_')
-        if len(file_bounce) < 2:
-            continue
-        if file_bounce[1] == 'b01':
+        if 'b01' in file:
             b1_list.append(file)
-        elif file_bounce[1] == 'b02':
+        elif 'b02' in file:
             b2_list.append(file)
-        elif file_bounce[1] == 'b03':
+        elif 'b03' in file:
             b3_list.append(file)
-        elif 'depth' in file:
-            depth_hdr_path = file
+        # elif 'depth' in file:
+        #     depth_hdr_path = file
     return b1_list, b2_list, b3_list, None
 
 if __name__ == '__main__':
