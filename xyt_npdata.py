@@ -73,10 +73,10 @@ if __name__ == '__main__':
 
         for i,b1 in enumerate(b1_list):
             img = np.array(cv2.imread(os.path.join(hdrfile_path, b1), flags=cv2.IMREAD_ANYDEPTH))
-            response_img[:,i,:] += img[:width,:,2]
+            response_img[i,:,:] += img[:width,:,2]
 
-        first_response = np.sum(response_img, axis=2).transpose(1, 0)
-        one_responces = response_img.transpose(1, 0, 2).copy()
+        first_response = np.sum(response_img, axis=2)
+        one_responces = response_img.copy()
         print(len(first_response.flatten()) - np.count_nonzero(first_response.flatten()))
 
 
@@ -85,20 +85,17 @@ if __name__ == '__main__':
         ########################################################################################################################
         for i,b2 in enumerate(b2_list):
             img = np.array(cv2.imread(os.path.join(hdrfile_path, b2), flags=cv2.IMREAD_ANYDEPTH))
-            response_img[:,i,:] += img[:width,:,2]
+            response_img[i,:,:] += img[:width,:,2]
         
-        second_response = np.sum(response_img, axis=2).transpose(1, 0)-first_response
-        two_responces = response_img.transpose(1, 0, 2).copy()
+        second_response = np.sum(response_img, axis=2)-first_response
+        two_responces = response_img.copy()
         
         for i,b3 in enumerate(b3_list):
             img = np.array(cv2.imread(os.path.join(hdrfile_path, b3), flags=cv2.IMREAD_ANYDEPTH))
-            response_img[:,i,:] += img[:width,:,2]
+            response_img[i,:,:] += img[:width,:,2]
         ########################################################################################################################
         # 1st bounce xyt commentout area is end.
         ########################################################################################################################
-
-        response_img = response_img.transpose(1, 0, 2)
-
 
         print(np.sum(response_img,axis=2).flatten().shape[0]-np.count_nonzero(np.sum(response_img,axis=2)))
         filename_resp = os.path.join(npzdata_path, dataname + '-xyt-inpulse.npz')
