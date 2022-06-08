@@ -44,20 +44,20 @@ npz_folder_path = os.path.join('npz', dataname)
 ~/bunnykiller_tools/  
 　├ scene-results/
 　│　└ livingroom-train1/
-　│　　　└ 00000/
-　│　　　└ 00001/
+　│　　　└ 00000/ ←それぞれのデータ番号に対して実行される
+　│　　　└ 00001/ ←
 　└ etc
 
 hdr_tools/  
 　├ GT-1st-bounce-clean.py 
 　├ npz/
-　│　└ livingroom-train1/ ←bunnykillerで出力されたhdrからGTを求めたり光を畳み込む。dataname内全てに適用される。
-　│　　　└ 00000/
+　│　└ livingroom-train1/ ←bunnykillerで出力されたhdrからGTを求めたり光を畳み込む。
+　│　　　└ 00000/ ←作成される
 　│　　　　　└ ground-truth.npz
 　│　　　　　└ A0.npz
 　│　　　　　└ A1.npz
 　│　　　　　└ A2.npz
-　│　　　└ 00001/
+　│　　　└ 00001/ ←作成される
 　└ etc
 ```
 
@@ -87,10 +87,10 @@ npz_folder_path = os.path.join('xyt-npz', dataname)
 hdr_tools/  
 　├ GT-1st-bounce-clean.py 
 　├ xyt-npz/
-　│　└ livingroom-train1/ ←bunnykillerで出力されたhdrからGTを求めたり光を畳み込む。dataname内全てに適用される。
-　│　　　└ 00000/
+　│　└ livingroom-train1/ ←bunnykillerで出力されたhdrからxytデータに変換する。
+　│　　　└ 00000/ ←作成される
 　│　　　　　└ xyt.npz
-　│　　　└ 00001/
+　│　　　└ 00001/ ←作成される
 　│　　　　　└ xyt.npz
 　└ etc
 ```
