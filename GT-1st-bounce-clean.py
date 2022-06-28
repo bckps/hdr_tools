@@ -127,10 +127,10 @@ if __name__ == '__main__':
                 nonzero = np.nonzero(response_img[i, j, :])[0]
                 if len(nonzero) == 0:
                     first_nonzero_time[i, j] = timeseq[-1]
-                    first_nonzero_index[i, j] = nonzero[0]
+                    first_nonzero_index[i, j] = tlen
                 else:
                     first_nonzero_time[i, j] = timeseq[nonzero[0]]
-                    first_nonzero_index[i, j] = tlen
+                    first_nonzero_index[i, j] = nonzero[0]
         depth_2220_nz = z_max * first_nonzero_index / one_responces.shape[2]
 
 
