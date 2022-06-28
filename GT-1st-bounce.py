@@ -171,15 +171,13 @@ if __name__ == '__main__':
         first_nonzero_index = np.zeros((height, width), dtype=np.int64)
         for i in range(height):
             for j in range(width):
-                # nonzero = np.nonzero(response_img[i, j, :])
-                nonzero = np.argmax(one_responces[i, j, :])
-                # print(nonzero)
-                if nonzero == 0:
+                nonzero = np.nonzero(response_img[i, j, :])[0]
+                if len(nonzero) == 0:
                     first_nonzero_time[i, j] = timeseq[-1]
+                    first_nonzero_index[i, j] = nonzero[0]
                 else:
-                    first_nonzero_time[i, j] = timeseq[nonzero]
-                    first_nonzero_index[i, j] = nonzero
-        # depth_2220_nz = z_max * first_nonzero_index / response_img.shape[2]
+                    first_nonzero_time[i, j] = timeseq[nonzero[0]]
+                    first_nonzero_index[i, j] = tlen
         depth_2220_nz = z_max * first_nonzero_index / one_responces.shape[2]
 
         # for i in range(height):

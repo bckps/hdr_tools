@@ -81,13 +81,14 @@ if __name__ == '__main__':
         #################################################################
         # Declaration
         #################################################################
+        tlen = 2220
         height, width = 256, 256
         response_img = np.zeros((height,width,2220))
         conv_window = np.ones((740))
         conved_img = np.zeros((height,width,2220))
         conv = np.zeros((height,width,2959))
 
-        timeseq = np.linspace((30e-3),(30e-3)*2221, num=2220)
+        timeseq = np.linspace((30e-3),(30e-3)*(tlen+1), num=tlen)
 
 
         #################################################################
@@ -117,18 +118,19 @@ if __name__ == '__main__':
         #################################################################
 
         c = 299792458
-        z_max = c*(30e-12)*2220 / 2.0
+        z_max = c*(30e-12)*tlen / 2.0
 
         first_nonzero_time = np.zeros((height, width))
         first_nonzero_index = np.zeros((height, width), dtype=np.int64)
         for i in range(height):
             for j in range(width):
-                nonzero = np.argmax(one_responces[i, j, :])
-                if nonzero == 0:
+                nonzero = np.nonzero(response_img[i, j, :])[0]
+                if len(nonzero) == 0:
                     first_nonzero_time[i, j] = timeseq[-1]
+                    first_nonzero_index[i, j] = nonzero[0]
                 else:
-                    first_nonzero_time[i, j] = timeseq[nonzero]
-                    first_nonzero_index[i, j] = nonzero
+                    first_nonzero_time[i, j] = timeseq[nonzero[0]]
+                    first_nonzero_index[i, j] = tlen
         depth_2220_nz = z_max * first_nonzero_index / one_responces.shape[2]
 
 
@@ -141,7 +143,7 @@ if __name__ == '__main__':
         for i in range(response_img.shape[0]):
             for j in range(response_img.shape[1]):
                 conv[i, j, :] = np.convolve(response_img[i, j, :], conv_window[:], 'full')
-                conved_img[i, j, :] = conv[i, j, :][:2220]
+                conved_img[i, j, :] = conv[i, j, :][:tlen]
 
 
         A0 = np.sum(conved_img[:, :, :740], axis=2)
